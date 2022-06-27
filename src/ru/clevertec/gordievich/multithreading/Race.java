@@ -4,8 +4,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.logging.Logger;
 
 public class Race {
+
+    private static Logger logger = Logger.getLogger(Race.class.getName());
 
     private final int length;
     private final ReentrantLock lock = new ReentrantLock(true);
@@ -23,10 +26,10 @@ public class Race {
             if(!isWinnerExist()) {
                 if (car.getDistance() >= length) {
                     isWinner.set(true);
-                    System.out.println(car.getName() + " is winner");
+                    logger.info(car.getName() + " is winner");
                 } else {
                     int distance = length - car.getDistance();
-                    System.out.println(car.getName() + " (speed = " + car.getSpeed() + "): " + distance + " m to the finish!");
+                    logger.info(car.getName() + " (speed = " + car.getSpeed() + "): " + distance + " m to the finish!");
                 }
             }
         } finally {
